@@ -1,0 +1,35 @@
+se mavenmoviesmini;
+
+select * from inventory_non_normalized;
+
+-- Question 1
+-- i will break the table into 3 tables to make it a more efficient schema
+
+-- Question 2
+-- inventory table - inventory_id, film_id, store_id
+-- film table - film_id, title, decription,release_year, rental_rate, rating)
+-- Store table - store_id, store_manager_first_name, store_manager_last_name, store_address, store_city, store_district
+
+-- Question 3
+create Schema mavenmoviesmajor;
+use mavenmoviesmajor;
+-- question 4 and 5
+Insert into inventory(inventory_id,film_id,store_id)
+select distinct inventory_id, film_id, store_id from mavenmoviesmini.inventory_non_normalized;
+
+select * from inventory;
+
+insert into film (film_id, title, description,release_year,rental_rate,rating)
+select distinct film_id, title, description,release_year,rental_rate,rating
+from mavenmoviesmini.inventory_non_normalized;
+
+select * from film;
+
+insert into store (store_id, store_manager_firstname, store_manager_lastname, store_address, store_city, store_district)
+select distinct store_id, store_manager_first_name, store_manager_last_name, store_address,store_city,store_district
+from mavenmoviesmini.inventory_non_normalized;
+
+select * from store;
+
+-- Question 6
+-- Previously we had a table storing redundant information, now we have a schema, with 3 tables that have all the informations, and is easy to access
