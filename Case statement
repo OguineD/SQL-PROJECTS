@@ -1,0 +1,20 @@
+select * from sales;
+select * from products;
+select * from sales where Amount > 2000 and Boxes < 100;
+select p.Salesperson, count(*) as 'shipment count' from sales as s 
+join people as p on p.SPID = s.SPID  where SaleDate between '2022 - 01-01' and '2022-01-31' group by Salesperson;
+select p.Product, sum(Boxes) from products as p
+join sales as s on s.PID = p.PID where product in ('Eclairs', 'Milk Bars') group by p.Product;
+select p.Product, sum(Boxes) from products as p
+join sales as s on s.PID = p.PID 
+where Product in ('Eclairs', 'Milk Bars') and SaleDate between '2022-02-01' and '2022-02-07' group by Product;
+SELECT 
+    *,
+    CASE
+        WHEN WEEKDAY(saledate) = 2 THEN ‘WednesdayShipment’
+        ELSE 'Othershipment'
+    END AS ‘WShipment’
+FROM
+    sales
+WHERE
+    customers < 100 AND boxes < 100;
